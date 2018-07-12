@@ -1,0 +1,68 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Panagea - Premium site template for travel agencies, hotels and restaurant listing.">
+    <meta name="author" content="Ansonika">
+    <title>Panagea | Premium site template for travel agencies, hotels and restaurant listing.</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- BASE CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+	<link href="/css/vendors.css" rel="stylesheet">
+	<link href="/css/icon_fonts/css/all_icons.min.css" rel="stylesheet">
+	
+	<!-- SPECIFIC CSS -->
+	<link href="/css/daterangepicker.css" rel="stylesheet">
+	
+	<!-- ALTERNATIVE COLORS CSS -->
+	<link href="#" id="colors" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+	<link href="/css/custom.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+
+</head>
+
+<body>
+    <div id="render-target"></div>
+    <div id="toTop"></div><!-- Back to top button -->
+	
+	<!-- COMMON SCRIPTS -->
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/common_scripts.js"></script>
+    <script src="/js/main.js"></script>
+	<script src="/assets/validate.js"></script>
+	
+	<!-- DATEPICKER  -->
+	<script src="/js/moment.min.js"></script>
+	<script src="/js/daterangepicker.js"></script>
+	<script>
+	$(function() {
+	  'use strict';
+	  $('input[name="dates"]').daterangepicker({
+		  autoUpdateInput: false,
+		  locale: {
+			  cancelLabel: 'Clear'
+		  }
+	  });
+	  $('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
+		  $(this).val(picker.startDate.format('MM-DD-YY') + ' > ' + picker.endDate.format('MM-DD-YY'));
+	  });
+	  $('input[name="dates"]').on('cancel.daterangepicker', function(ev, picker) {
+		  $(this).val('');
+	  });
+	});
+	</script>
+	
+	<!-- INPUT QUANTITY  -->
+	<script src="/js/input_qty.js"></script>
+</body>
