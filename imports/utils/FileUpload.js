@@ -1,193 +1,189 @@
-import {withTracker} from 'meteor/react-meteor-data';
-import {Meteor} from 'meteor/meteor';
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import { withTracker } from "meteor/react-meteor-data";
+import { Meteor } from "meteor/meteor";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import IndividualFile from './FileIndividualFile.js';
-import {UserFiles} from '../../api/FilesCollection'
-const debug = require('debug')('demo:file');
+import IndividualFile from "./FileIndividualFile.js";
+import { UserFiles } from "../../api/FilesCollection";
+const debug = require("debug")("demo:file");
 
 class FileUploadComponent extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            uploading: [],
-            progress: 0,
-            inProgress: false,
-            cFile: '',
-            idFile: ''
-        };
+    this.state = {
+      uploading: [],
+      progress: 0,
+      inProgress: false,
+      cFile: "",
+      idFile: ""
+    };
 
-        this.uploadIt = this
-            .uploadIt
-            .bind(this);
-    }
+    this.uploadIt = this.uploadIt.bind(this);
+  }
 
-    uploadIt(e) {
-        e.preventDefault();
-        let self = this;
-        const context = this.props.context
-        if (e.currentTarget.files && e.currentTarget.files[0]) {
-            // We upload only one file, in case there was multiple files selected
-            var file = e.currentTarget.files[0];
+  uploadIt(e) {
+    e.preventDefault();
+    let self = this;
+    const context = this.props.context;
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case there was multiple files selected
+      var file = e.currentTarget.files[0];
 
-            if (file) {
-                let uploadInstance = UserFiles.insert({
-                    file: file,
-                    meta: {
-                        locator: self.props.fileLocator,
-                        userId: Meteor.userId() // Optional, used to check on server for file tampering
-                    },
-                    streams: 'dynamic',
-                    chunkSize: 'dynamic',
-                    allowWebWorkers: true // If you see issues with uploads, change this to false
-                }, false)
+      if (file) {
+        let uploadInstance = UserFiles.insert(
+          {
+            file: file,
+            meta: {
+              locator: self.props.fileLocator,
+              userId: Meteor.userId() // Optional, used to check on server for file tampering
+            },
+            streams: "dynamic",
+            chunkSize: "dynamic",
+            allowWebWorkers: true // If you see issues with uploads, change this to false
+          },
+          false
+        );
 
-                self.setState({
-                    uploading: uploadInstance, // Keep track of this instance to use below
-                    inProgress: true // Show the progress bar now
-                });
+        self.setState({
+          uploading: uploadInstance, // Keep track of this instance to use below
+          inProgress: true // Show the progress bar now
+        });
 
-                // These are the event functions, don't need most of them, it shows where we are
-                // in the process
-                uploadInstance.on('start', function () {
-                    // console.log('Starting');
-                })
+        // These are the event functions, don't need most of them, it shows where we are
+        // in the process
+        uploadInstance.on("start", function() {
+          // console.log('Starting');
+        });
 
-                uploadInstance.on('end', function (error, fileObj) {
-                    self.props.coverImgm
-                        ? self
-                            .props
-                            .coverImgm(fileObj._id)
-                        : ''
-                    self.props.mainImgm ? self.props.mainImgm(fileObj._id) : ''
-                    // console.log('On end File Object: ', fileObj.path);
-                })
+        uploadInstance.on("end", function(error, fileObj) {
+          self.props.coverImgm ? self.props.coverImgm(fileObj._id) : "";
+          self.props.mainImgm ? self.props.mainImgm(fileObj._id) : "";
+          // console.log('On end File Object: ', fileObj.path);
+        });
 
-                uploadInstance.on('uploaded', function (error, fileObj) {
-                    // console.log('uploaded: ', fileObj);
-                    self.setState({idFile: fileObj._id})
-                    self
-                        .props
-                        .fFile(fileObj._id)
-                    Meteor.call('get.link', fileObj, (err, result) => {
-                        if (err) {
-                        } else {
-                            // console.log('ooooooooooooooooooooooooooooooo' + result)
-                            self.setState({cFile: result})
-                        }
-                    })
-                    // Remove the filename from the upload box
-                    // self.refs['fileinput'].value = '';
-
-                    // Reset our state for the next file
-                    self.setState({uploading: [], progress: 0, inProgress: false});
-                })
-
-                uploadInstance.on('error', function (error, fileObj) {
-                    // console.log('Error during upload: ' + error)
-                });
-
-                uploadInstance.on('progress', function (progress, fileObj) {
-                    // console.log('Upload Percentage: ' + progress)
-                    // Update our progress bar
-                    self.setState({progress: progress});
-                });
-
-                uploadInstance.start(); // Must manually start the upload
+        uploadInstance.on("uploaded", function(error, fileObj) {
+          // console.log('uploaded: ', fileObj);
+          self.setState({ idFile: fileObj._id });
+          self.props.fFile(fileObj._id);
+          Meteor.call("get.link", fileObj, (err, result) => {
+            if (err) {
+            } else {
+              // console.log('ooooooooooooooooooooooooooooooo' + result)
+              self.setState({ cFile: result });
             }
-        }
+          });
+          // Remove the filename from the upload box
+          // self.refs['fileinput'].value = '';
+
+          // Reset our state for the next file
+          self.setState({ uploading: [], progress: 0, inProgress: false });
+        });
+
+        uploadInstance.on("error", function(error, fileObj) {
+          // console.log('Error during upload: ' + error)
+        });
+
+        uploadInstance.on("progress", function(progress, fileObj) {
+          // console.log('Upload Percentage: ' + progress)
+          // Update our progress bar
+          self.setState({ progress: progress });
+        });
+
+        uploadInstance.start(); // Must manually start the upload
+      }
     }
+  }
 
-    // This is our progress bar, bootstrap styled Remove this function if not needed
-    showUploads() {
-        // console.log('**********************************', this.state.uploading);
+  // This is our progress bar, bootstrap styled Remove this function if not needed
+  showUploads() {
+    // console.log('**********************************', this.state.uploading);
 
-        if(!_.isEmpty(this.state.uploading)) {
-            return <div>
-                {this.state.uploading.file.name}
-                <img src={this.state.uploading.file.url} alt=""/>
-                <div className="progress progress-bar-default">
-                    <div
-                        style={{
-                        width: this.state.progress + '%'
-                    }}
-                        aria-valuemax="100"
-                        aria-valuemin="0"
-                        aria-valuenow={this.state.progress || 0}
-                        role="progressbar"
-                        className="progress-bar">
-                        <span className="sr-only">{this.state.progress}% Complete (success)</span>
-                        <span>{this.state.progress}%</span>
-                    </div>
-                </div>
+    if (!_.isEmpty(this.state.uploading)) {
+      return (
+        <div>
+          {this.state.uploading.file.name}
+          <img src={this.state.uploading.file.url} alt="" />
+          <div className="progress progress-bar-default">
+            <div
+              style={{
+                width: this.state.progress + "%"
+              }}
+              aria-valuemax="100"
+              aria-valuemin="0"
+              aria-valuenow={this.state.progress || 0}
+              role="progressbar"
+              className="progress-bar"
+            >
+              <span className="sr-only">
+                {this.state.progress}% Complete (success)
+              </span>
+              <span>{this.state.progress}%</span>
             </div>
-        }
+          </div>
+        </div>
+      );
     }
+  }
 
-    render() {
+  render() {
+    debug("Rendering FileUpload", this.props.docsReadyYet);
+    if (this.props.files && this.props.docsReadyYet) {
+      let fileCursors = this.props.files;
 
-        debug("Rendering FileUpload", this.props.docsReadyYet);
-        if (this.props.files && this.props.docsReadyYet) {
+      // Run through each file that the user has stored (make sure the subscription
+      // only sends files owned by this user)
+      let display = fileCursors.map((aFile, key) => {
+        // console.log('A file: ', aFile.link(), aFile.get('name'))
+        let link = UserFiles.findOne({ _id: aFile._id }).link(); //The "view/download" link
 
-            let fileCursors = this.props.files;
+        // Send out components that show details of each file return <div key={'file' +
+        // key}>   <IndividualFile     fileName={aFile.name}     fileUrl={link}
+        // fileId={aFile._id}     fileSize={aFile.size}   /> </div>
+      });
 
-            // Run through each file that the user has stored (make sure the subscription
-            // only sends files owned by this user)
-            let display = fileCursors.map((aFile, key) => {
-                // console.log('A file: ', aFile.link(), aFile.get('name'))
-                let link = UserFiles
-                    .findOne({_id: aFile._id})
-                    .link(); //The "view/download" link
-
-                // Send out components that show details of each file return <div key={'file' +
-                // key}>   <IndividualFile     fileName={aFile.name}     fileUrl={link}
-                // fileId={aFile._id}     fileSize={aFile.size}   /> </div>
-            })
-
-            return <div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <input
-                            type="file"
-                            id="fileinput"
-                            disabled={this.state.inProgress}
-                            ref="fileinput"
-                            onChange={this.uploadIt}/>
-                        <img src={this.state.cFile} alt=""/>
-                    </div>
-                </div>
-
-                <div className="row m-t-sm m-b-sm">
-                    <div className="col-md-6">
-
-                        {this.showUploads()}
-
-                    </div>
-                    <div className="col-md-6"></div>
-                </div>
-
-                {display}
-
+      return (
+        <div>
+          <div className="row">
+            <div className="col-md-12">
+              <input
+                type="file"
+                id="fileinput"
+                disabled={this.state.inProgress}
+                ref="fileinput"
+                onChange={this.uploadIt}
+              />
+              <img src={this.state.cFile} alt="" style={{ width: "100%" }} />
             </div>
-        } else 
-            return <div>Loading file list</div>;
-        }
-    }
+          </div>
+
+          <div className="row m-t-sm m-b-sm">
+            <div className="col-md-6">{this.showUploads()}</div>
+            <div className="col-md-6" />
+          </div>
+
+          {display}
+        </div>
+      );
+    } else return <div>Loading file list</div>;
+  }
+}
 
 //
 // This is the HOC - included in this file just for convenience, but usually
 // kept in a separate file to provide separation of concerns.
 //
-export default withTracker((props) => {
-    const filesHandle = Meteor.subscribe('files.all');
-    const docsReadyYet = filesHandle.ready();
-    const files = UserFiles.find({}, {
-        sort: {
-            name: 1
-        }
-    }).fetch();
+export default withTracker(props => {
+  const filesHandle = Meteor.subscribe("files.all");
+  const docsReadyYet = filesHandle.ready();
+  const files = UserFiles.find(
+    {},
+    {
+      sort: {
+        name: 1
+      }
+    }
+  ).fetch();
 
-    return {docsReadyYet, files};
+  return { docsReadyYet, files };
 })(FileUploadComponent);

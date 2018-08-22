@@ -3,7 +3,7 @@ import { Meteor } from "meteor/meteor";
 import Categories from "../../../utils/Categories";
 import SubCategories from "../../../utils/SubCategories";
 import FileUpload from "../../../utils/FileUpload";
-class AddAdvertaisment extends Component {
+class AddSeminar extends Component {
   state = {
     curCat: "Art",
     title: "",
@@ -190,4 +190,4 @@ class AddAdvertaisment extends Component {
     );
   }
 }
-export default AddAdvertaisment;
+export default AddSeminar;
