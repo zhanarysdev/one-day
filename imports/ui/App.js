@@ -14,10 +14,10 @@ import LoginPage from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Cabinet from "./pages/Cabinet";
 import SingleAddPage from "./pages/SingleAddPage";
-import AddAdvertaisment from "./pages/cabinet/AddAdvertaisment";
-import AddMasterClass from "./pages/cabinet/AddMasterClass";
-import AddSeminar from "./pages/cabinet/AddSeminar";
-import AddTraining from "./pages/cabinet/AddTraining";
+// import AddAdvertaisment from "./pages/cabinet/AddAdvertaisment";
+// import AddMasterClass from "./pages/cabinet/AddMasterClass";
+// import AddSeminar from "./pages/cabinet/AddSeminar";
+// import AddTraining from "./pages/cabinet/AddTraining";
 // App component - represents the whole app
 export default class App extends Component {
   render() {
@@ -32,7 +32,7 @@ export default class App extends Component {
               <Route exact path="/register" component={SignUp} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/" component={Home} />
-              <Route>
+              {/* <Route>
                 <Cabinet>
                   <Route
                     exact
@@ -54,9 +54,9 @@ export default class App extends Component {
                     path="/cabinet/addadv"
                     component={AddAdvertaisment}
                   />
-                  <Route path="/cabinet" component={Cabinet} />
-                </Cabinet>
-              </Route>
+                </Cabinet> */}
+              {/* </Route> */}
+              <Route path="/cabinet" component={Cabinet} />
             </Switch>
             <Footer />
           </React.Fragment>

@@ -14,7 +14,24 @@ const Slider = props => {
       <div className="item">
         <div className="box_grid" style={{ width: "300px" }}>
           <figure>
-            <a href="#0" className="wish_bt" />
+            <a
+              href="#0"
+              className="wish_bt"
+              onClick={e => {
+                e.preventDefault();
+                const data = {
+                  userId: Meteor.userId(),
+                  follow: item._id
+                };
+                Meteor.call("UsersCollection.update", data, (err, result) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log(result);
+                  }
+                });
+              }}
+            />
             <Link to={`/advPage/${item._id}`}>
               <img
                 src={item.coverImg}
