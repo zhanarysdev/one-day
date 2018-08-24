@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-class LearCentCabinet extends Component {
+class UserCabinet extends Component {
   state = {
     menuCategory: ""
   };
@@ -24,27 +24,9 @@ class LearCentCabinet extends Component {
                 <div className="box_style_cat" id="faq_box">
                   <ul id="cat_nav">
                     <li>
-                      <Link to="/cabinet/addAdv" className="active">
+                      <Link to="/cabinet/followingCourses" className="active">
                         <i className="icon_document_alt" />
-                        Add advertaisment
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/cabinet/addMasterClass" className="active">
-                        <i className="icon_document_alt" />
-                        Add master Class
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/cabinet/addSeminar" className="active">
-                        <i className="icon_document_alt" />
-                        Add seminar
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/cabinet/addTraining" className="active">
-                        <i className="icon_document_alt" />
-                        Add training
+                        following courses
                       </Link>
                     </li>
                     <li>
@@ -68,7 +50,7 @@ class LearCentCabinet extends Component {
                 </div>
               </aside>
               <div className="col-lg-9 addAdvertaisment" id="faq">
-                asd
+                dsa
               </div>
             </div>
           </div>
@@ -78,4 +60,4 @@ class LearCentCabinet extends Component {
   }
 }
 
-export default LearCentCabinet;
+export default UserCabinet;

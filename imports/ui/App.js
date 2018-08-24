@@ -14,10 +14,11 @@ import LoginPage from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Cabinet from "./pages/Cabinet";
 import SingleAddPage from "./pages/SingleAddPage";
-// import AddAdvertaisment from "./pages/cabinet/AddAdvertaisment";
-// import AddMasterClass from "./pages/cabinet/AddMasterClass";
-// import AddSeminar from "./pages/cabinet/AddSeminar";
-// import AddTraining from "./pages/cabinet/AddTraining";
+import AddAdvertaisment from "./pages/cabinet/LearCent/AddAdvertaisment";
+import AddMasterClass from "./pages/cabinet/LearCent/AddMasterClass";
+import AddSeminar from "./pages/cabinet/LearCent/AddSeminar";
+import AddTraining from "./pages/cabinet/LearCent/AddTraining";
+import FollowingCourses from "./pages/cabinet/User/FollowingCourses";
 // App component - represents the whole app
 export default class App extends Component {
   render() {
@@ -28,35 +29,32 @@ export default class App extends Component {
             <Header />
             <Switch>
               <Route exact path="/advPage/:id" component={SingleAddPage} />
+              <Route
+                exact
+                path="/cabinet/followingCourses"
+                component={FollowingCourses}
+              />
+              <Route
+                exact
+                path="/cabinet/addTraining"
+                component={AddTraining}
+              />
+              <Route exact path="/cabinet/addSeminar" component={AddSeminar} />
+              <Route
+                exact
+                path="/cabinet/addMasterClass"
+                component={AddMasterClass}
+              />
+              <Route
+                exact
+                path="/cabinet/addAdv"
+                component={AddAdvertaisment}
+              />
+              <Route path="/cabinet" component={Cabinet} />
 
               <Route exact path="/register" component={SignUp} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/" component={Home} />
-              {/* <Route>
-                <Cabinet>
-                  <Route
-                    exact
-                    path="/cabinet/addTraining"
-                    component={AddTraining}
-                  />
-                  <Route
-                    exact
-                    path="/cabinet/addSeminar"
-                    component={AddSeminar}
-                  />
-                  <Route
-                    exact
-                    path="/cabinet/addMasterClass"
-                    component={AddMasterClass}
-                  />
-                  <Route
-                    exact
-                    path="/cabinet/addadv"
-                    component={AddAdvertaisment}
-                  />
-                </Cabinet> */}
-              {/* </Route> */}
-              <Route path="/cabinet" component={Cabinet} />
             </Switch>
             <Footer />
           </React.Fragment>

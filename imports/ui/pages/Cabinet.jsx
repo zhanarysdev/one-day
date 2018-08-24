@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LearCentCabinet from "./cabinet/LearCent/LearCentCabinet";
 import { Link } from "react-router-dom";
+import UserCabinet from "./cabinet/User/UserCabinet";
 import { withTracker } from "meteor/react-meteor-data";
 class Cabinet extends Component {
   state = {
@@ -12,20 +13,21 @@ class Cabinet extends Component {
       this.props.history.push("/login");
     }
     const user = this.props.user;
-    console.log(user);
+
     const showContent = () => {
-      if (user ? user.profile.type : "" == "learning center") {
+      if (user.profile.type == "learning center") {
         return <LearCentCabinet />;
+      } else if (user.profile.type == "user") {
+        return <UserCabinet />;
       } else {
-        console.log("somthing went wrong");
       }
     };
-    return <React.Fragment>{showContent()}</React.Fragment>;
+    return this.props.loading ? <p>loading</p> : showContent();
   }
 }
 
 export default withTracker(() => {
-  return {
-    user: Meteor.user()
-  };
+  const loading = !Meteor.user();
+  const user = Meteor.user();
+  return { loading, user };
 })(Cabinet);
