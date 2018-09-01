@@ -55,7 +55,8 @@ class AddMasterClass extends Component {
         age: this.state.age,
         reqLvl: this.state.reqLvl,
         city: this.state.city,
-        date: this.state.date
+        date: this.state.date,
+        type: 'masterClass'
       };
       Meteor.call("MainCollection.insert", data, (err, result) => {
         if (err) {
@@ -86,7 +87,7 @@ class AddMasterClass extends Component {
                     <li>
                       <Link to="/cabinet/addAdv" className="active">
                         <i className="icon_document_alt" />
-                        Add master class
+                       Add advertasiment  
                       </Link>
                     </li>
                     <li>
@@ -130,7 +131,7 @@ class AddMasterClass extends Component {
               <div className="col-lg-9 addAdvertaisment" id="faq">
                 <h4 className="nomargin_top">Payments</h4>
                 <div className="card">
-                  <div className="card-header">Add advertaisment</div>
+                  <div className="card-header">Add master class</div>
                   <div className="card-body">
                     <div className="row">
                       <div className="form-group">
