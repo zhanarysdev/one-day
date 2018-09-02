@@ -7,6 +7,7 @@ import FileUpload from "../../../../utils/FileUpload";
 class AddMasterClass extends Component {
   state = {
     curCat: "Art",
+    subCat: "Photography",
     title: "",
     description: "",
     fileId: "",
@@ -49,6 +50,7 @@ class AddMasterClass extends Component {
       let data;
       data = {
         curCat: this.state.curCat,
+        subCat: this.state.subCat,
         title: this.state.title,
         description: this.state.description,
         coverImg: this.state.coverImg,
@@ -56,7 +58,7 @@ class AddMasterClass extends Component {
         reqLvl: this.state.reqLvl,
         city: this.state.city,
         date: this.state.date,
-        type: 'masterClass'
+        type: "masterClass"
       };
       Meteor.call("MainCollection.insert", data, (err, result) => {
         if (err) {
@@ -87,7 +89,7 @@ class AddMasterClass extends Component {
                     <li>
                       <Link to="/cabinet/addAdv" className="active">
                         <i className="icon_document_alt" />
-                       Add advertasiment  
+                        Add advertaisment
                       </Link>
                     </li>
                     <li>
@@ -144,7 +146,13 @@ class AddMasterClass extends Component {
                         >
                           {chooseCat()}
                         </select>
-                        <select name="" id="">
+                        <select
+                          name=""
+                          id=""
+                          onChange={e => {
+                            this.setState({ subCat: e.target.value });
+                          }}
+                        >
                           {chooseSubCat()}
                         </select>
                       </div>

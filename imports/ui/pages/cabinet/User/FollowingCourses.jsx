@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withTracker } from "meteor/react-meteor-data";
+import { MainCollection } from "/api/MainCollection";
 class FollowingCourses extends Component {
   state = {
     menuCategory: ""
   };
   render() {
-    const showCont = () => {};
+    const adv = this.props.adv;
+    const idis = Meteor.user() ? Meteor.user().profile.follows : "";
+    const idCours = idis.map(id => id);
+    console.log(idCours);
+    // const showCont = () => {
+    //   return adv.map(idAdv => idCours == idAdv);
+    // };
     return (
       <React.Fragment>
         <main>
@@ -61,4 +69,9 @@ class FollowingCourses extends Component {
   }
 }
 
-export default FollowingCourses;
+export default withTracker(() => {
+  Meteor.subscribe("MainCollection");
+  return {
+    adv: MainCollection.find().fetch()
+  };
+})(FollowingCourses);

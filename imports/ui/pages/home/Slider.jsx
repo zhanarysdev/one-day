@@ -48,7 +48,7 @@ const Slider = props => {
           </figure>
           <div className="wrapper">
             <h3>
-              <a href="tour-detail.html">{item.title}</a>
+              <Link to={`/advPage/${item._id}`}>{item.title}</Link>
             </h3>
             <p>{item.description}</p>
             <span className="price">

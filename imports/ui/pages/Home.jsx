@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { MainCollection } from "../../../api/MainCollection";
 import Slider from "./home/Slider";
+import cities from "../../utils/cities";
 class Home extends Component {
   render() {
+    const chooseCities = () => {
+      return cities.map(item => {
+        return <option key={item}>{item}</option>;
+      });
+    };
     const showPopular = () => {
       return this.props.adv.map(item => {
         return (
@@ -44,15 +50,25 @@ class Home extends Component {
                   <div className="row no-gutters custom-search-input-2">
                     <div className="col-lg-4">
                       <div className="form-group">
-                        <input
-                          className="form-control"
-                          type="text"
-                          placeholder="Hotel, City..."
-                        />
+                        <select
+                          name=""
+                          id=""
+                          style={{
+                            display: "block",
+                            width: "100%",
+                            height: "50px",
+                            background: "white"
+                          }}
+                          onChange={e => {
+                            console.log();
+                          }}
+                        >
+                          {chooseCities()}
+                        </select>
                         <i className="icon_pin_alt" />
                       </div>
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-4">
                       <div className="form-group">
                         <input
                           className="form-control"
@@ -63,25 +79,8 @@ class Home extends Component {
                         <i className="icon_calendar" />
                       </div>
                     </div>
-                    <div className="col-lg-3">
-                      <div className="panel-dropdown">
-                        <a href="#">
-                          Guests
-                          <span className="qtyTotal">1</span>
-                        </a>
-                        <div className="panel-dropdown-content">
-                          <div className="qtyButtons">
-                            <label>Adults</label>
-                            <input type="text" name="qtyInput" value="1" />
-                          </div>
-                          <div className="qtyButtons">
-                            <label>Childrens</label>
-                            <input type="text" name="qtyInput" value="0" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-2">
+
+                    <div className="col-lg-4">
                       <input
                         type="submit"
                         className="btn_search"

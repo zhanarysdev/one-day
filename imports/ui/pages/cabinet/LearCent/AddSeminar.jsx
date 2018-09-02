@@ -7,6 +7,7 @@ import FileUpload from "../../../../utils/FileUpload";
 class AddSeminar extends Component {
   state = {
     curCat: "Art",
+    subCat: "Photography",
     title: "",
     description: "",
     fileId: "",
@@ -49,6 +50,7 @@ class AddSeminar extends Component {
       let data;
       data = {
         curCat: this.state.curCat,
+        subCat: this.state.subCat,
         title: this.state.title,
         description: this.state.description,
         coverImg: this.state.coverImg,
@@ -86,7 +88,7 @@ class AddSeminar extends Component {
                     <li>
                       <Link to="/cabinet/addAdv" className="active">
                         <i className="icon_document_alt" />
-                        Add seminar
+                        Add advertaisment
                       </Link>
                     </li>
                     <li>
@@ -130,7 +132,7 @@ class AddSeminar extends Component {
               <div className="col-lg-9 addAdvertaisment" id="faq">
                 <h4 className="nomargin_top">Payments</h4>
                 <div className="card">
-                  <div className="card-header">Add advertaisment</div>
+                  <div className="card-header">Add seminar</div>
                   <div className="card-body">
                     <div className="row">
                       <div className="form-group">
@@ -143,7 +145,13 @@ class AddSeminar extends Component {
                         >
                           {chooseCat()}
                         </select>
-                        <select name="" id="">
+                        <select
+                          name=""
+                          id=""
+                          onChange={e => {
+                            this.setState({ subCat: e.target.value });
+                          }}
+                        >
                           {chooseSubCat()}
                         </select>
                       </div>

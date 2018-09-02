@@ -12,7 +12,7 @@ class Header extends Component {
           <div id="logo">
             <Link to="/">
               <img
-                src="/img/logo.png"
+                src="/img/logo2.png"
                 width="150"
                 height="36"
                 data-retina="true"
@@ -20,7 +20,7 @@ class Header extends Component {
                 className="logo_normal"
               />
               <img
-                src="/img/logo_sticky.png"
+                src="/img/logo2.png"
                 width="150"
                 height="36"
                 data-retina="true"

@@ -7,6 +7,7 @@ import FileUpload from "../../../../utils/FileUpload";
 class LearCentCabinet extends Component {
   state = {
     curCat: "Art",
+    subCat: "Photography",
     title: "",
     description: "",
     fileId: "",
@@ -49,6 +50,7 @@ class LearCentCabinet extends Component {
       let data;
       data = {
         curCat: this.state.curCat,
+        subCat: this.state.subCat,
         title: this.state.title,
         description: this.state.description,
         coverImg: this.state.coverImg,
@@ -143,7 +145,13 @@ class LearCentCabinet extends Component {
                         >
                           {chooseCat()}
                         </select>
-                        <select name="" id="">
+                        <select
+                          name=""
+                          id=""
+                          onChange={e => {
+                            this.setState({ subCat: e.target.value });
+                          }}
+                        >
                           {chooseSubCat()}
                         </select>
                       </div>
